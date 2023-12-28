@@ -46,15 +46,25 @@ import com.example.consumeapi.ui.home.viewmodel.KontakUIState
 
 
 @Composable
-fun HomeScreen(
-    kontakUIState: KontakUIState, retryAction: () -> Unit, modifier: Modifier = Modifier
+fun HomeStatus(
+    kontakUIState: KontakUIState, retryAction: () -> Unit,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Kontak) -> Unit,
+    onDeleteClick: (Kontak) -> Unit = {}
 ) {
 
     when (kontakUIState) {
         is KontakUIState.Loading -> OnLoading(modifier = modifier.fillMaxSize())
         is KontakUIState.Success -> KontakLayout(
-            kontak = kontakUIState.kontak, modifier = modifier.fillMaxWidth())
-        )
+            kontak = kontakUIState.kontak, modifier = modifier.fillMaxWidth(),
+
+                onDeleteClick = {
+                    onDeleteClick(it)
+                },
+            onDetailClick = {
+                onDetailClick(it.id)
+            }
+            )
 
         is KontakUIState.Error -> OnError(retryAction, modifier = modifier.fillMaxSize())
     }
@@ -95,10 +105,10 @@ fun OnError(retryAction: () -> Unit, modifier: Modifier = Modifier) {
 
 @Composable
 fun KontakLayout(
-                 kontak: List<Kontak>,
-                 modifier: Modifier = Modifier,
-                 onDetailClick: (Kontak) -> Unit,
-                 onDeleteClick: (Kontak) -> Unit = {}
+    kontak: List<Kontak>,
+    modifier: Modifier = Modifier,
+    onDetailClick: (Kontak) -> Unit,
+    onDeleteClick: (Kontak) -> Unit = {}
 ) {
     LazyColumn(
         modifier = modifier,
@@ -111,7 +121,8 @@ fun KontakLayout(
                     .fillMaxWidth()
                     .clickable { onDetailClick(kontak) },
                 onDeleteClick = {
-                    onDeleteClick(kontak)}
+                    onDeleteClick(kontak)
+                }
             )
         }
     }
@@ -160,7 +171,7 @@ fun KontakCard(
             )
 
             Spacer(Modifier.weight(1f))
-            IconButton(onClick = {onDeleteClick(kontak) }) {
+            IconButton(onClick = { onDeleteClick(kontak) }) {
                 Icon(
                     imageVector = Icons.Default.Delete,
                     contentDescription = null,
