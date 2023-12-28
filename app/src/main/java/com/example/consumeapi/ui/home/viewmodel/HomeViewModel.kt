@@ -48,7 +48,13 @@ class HomeViewModel(private val kontakRepository: KontakRepository) : ViewModel(
 
     fun deleteKontak(id: Int) {
         viewModelScope.launch {
-
+            try {
+                kontakRepository.deletekontak(id)
+            } catch (e: IOException) {
+                KontakUIState.Error
+            } catch (e: HttpException) {
+                KontakUIState.Error
+            }
         }
     }
 }
