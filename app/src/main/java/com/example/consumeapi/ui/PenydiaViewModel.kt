@@ -7,6 +7,7 @@ import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.consumeapi.KontakAplikation
 import com.example.consumeapi.ui.home.viewmodel.HomeViewModel
+import com.example.consumeapi.ui.kontak.viewmodel.InsertViewModel
 
 object PenydiaViewModel {
     val Factory = viewModelFactory {
@@ -14,6 +15,11 @@ object PenydiaViewModel {
         initializer {
             HomeViewModel(aplikasikontak().container.kontakRepository)
         }
+
+        initializer {
+            InsertViewModel(aplikasikontak().container.kontakRepository)
+        }
+
     }
 }
 
