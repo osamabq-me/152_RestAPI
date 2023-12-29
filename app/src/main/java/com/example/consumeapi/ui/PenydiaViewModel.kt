@@ -2,11 +2,14 @@ package com.example.consumeapi.ui
 
 import android.text.Spannable.Factory
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.createSavedStateHandle
 import androidx.lifecycle.viewmodel.CreationExtras
 import androidx.lifecycle.viewmodel.initializer
 import androidx.lifecycle.viewmodel.viewModelFactory
 import com.example.consumeapi.KontakAplikation
 import com.example.consumeapi.ui.home.viewmodel.HomeViewModel
+import com.example.consumeapi.ui.kontak.viewmodel.DetilsViewModel
+import com.example.consumeapi.ui.kontak.viewmodel.EditViewModel
 import com.example.consumeapi.ui.kontak.viewmodel.InsertViewModel
 
 object PenydiaViewModel {
@@ -18,6 +21,19 @@ object PenydiaViewModel {
 
         initializer {
             InsertViewModel(aplikasikontak().container.kontakRepository)
+        }
+        initializer {
+            DetilsViewModel(
+                createSavedStateHandle(),
+                kontakRepository = aplikasikontak().container.kontakRepository
+            )
+        }
+
+        initializer {
+            EditViewModel(
+                createSavedStateHandle(),
+                kontakRepository = aplikasikontak().container.kontakRepository
+            )
         }
 
     }

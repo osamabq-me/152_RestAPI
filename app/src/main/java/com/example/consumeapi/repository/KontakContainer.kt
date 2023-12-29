@@ -15,7 +15,7 @@ class KontakContainer: AppContainer{
     //IF  emeliotor use 10.0.2.2
     //IF phone check phones IP ipconfig
     //// CHECK IP Always
-    private val baseUrl = "http://192.168.1.18:8080/"
+    private val baseUrl = "http://10.69.8.30:8080/"
     private val json = Json { ignoreUnknownKeys = true }
     private val retrofit: Retrofit = Retrofit.Builder()
         .addConverterFactory(json.asConverterFactory("application/json".toMediaType()))

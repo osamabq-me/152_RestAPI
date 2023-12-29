@@ -61,7 +61,7 @@ fun EntryKontakScreen(
             onSaveClick = {
                 coroutineScope.launch {
                     /////////////WHY THIS
-                    viewModel.insertKontakState
+                    viewModel.insertKontak()
                     navigateBack()
                 }
             },
